@@ -9,7 +9,7 @@ namespace ObjectGrabber
     using UnityEngine;
     using TMPro;
 
-    [BepInPlugin("org.bepinex.plugins.humanfallflat.achievements", "Achievement Tracker", "1.2.4")]
+    [BepInPlugin("org.bepinex.plugins.humanfallflat.objectgrabber", "Grab Count Tracker", "1.0.0")]
     [BepInProcess("Human.exe")]
     public class GrabberTracker : BaseUnityPlugin
     {
