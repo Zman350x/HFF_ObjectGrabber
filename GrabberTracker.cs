@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.IO;
 using BepInEx;
 
 namespace ObjectGrabber
@@ -8,8 +10,6 @@ namespace ObjectGrabber
     using HarmonyLib;
     using UnityEngine;
     using TMPro;
-    using System.Reflection;
-    using System.IO;
 
     [BepInPlugin("org.bepinex.plugins.humanfallflat.objectgrabber", "Grab Count Tracker", "1.0.0")]
     [BepInProcess("Human.exe")]
@@ -26,10 +26,6 @@ namespace ObjectGrabber
         private GameObject textObj2;
         private TextMeshProUGUI textVisuals2;
 
-        private AssetBundle bundle;
-        private Texture2D fontAtlas;
-        private Material fontMaterial;
-
         private TMP_FontAsset font;
 
         public void Start()
@@ -38,13 +34,7 @@ namespace ObjectGrabber
             isEnabled = false;
             grabs = 0;
 
-            string bundleName = Assembly.GetExecutingAssembly().GetManifestResourceNames().Single(str => str.EndsWith("unifont2017"));
-            Stream bundleStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(bundleName);
-            bundle = AssetBundle.LoadFromStream(bundleStream);
-            fontAtlas = bundle.LoadAsset<Texture2D>("assets/unifont-15.asset");
-            fontMaterial = bundle.LoadAsset<Material>("assets/unifont-15.asset");
-            UnifontInfo.unifontInit(fontAtlas, fontMaterial);
-            font = UnifontInfo.unifont;
+            font = UnifontInfo.createFont();
 
             setupTMP(ref textObj, ref textVisuals, new Vector3(-854, -531, 0));
             setupTMP(ref textObj2, ref textVisuals2, new Vector3(-854, -471, 0));
@@ -91,7 +81,7 @@ namespace ObjectGrabber
             textContent = gameObj.AddComponent<TextMeshProUGUI>();
             textContent.color = Color.white; //black
             textContent.fontSize = 50; //60
-            textContent.font = UnifontInfo.unifont; //Resources.FindObjectsOfTypeAll<TMP_FontAsset>().Single(font => font.name == "Blogger_Sans-Bold SDF"); //Menu SDF
+            textContent.font = font; //Resources.FindObjectsOfTypeAll<TMP_FontAsset>().Single(font => font.name == "Blogger_Sans-Bold SDF"); //Menu SDF
             //textContent.fontMaterial = Resources.FindObjectsOfTypeAll<Material>().Single(material => material.name == "Blogger_Sans-Bold SDF Instruction"); //remove line
             textContent.enableWordWrapping = false;
             textContent.alignment = TextAlignmentOptions.BaselineLeft;

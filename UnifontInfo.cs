@@ -3,15 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace ObjectGrabber
 {
     using HarmonyLib;
     using UnityEngine;
     using TMPro;
+    using System.IO;
+
     class UnifontInfo
     {
-        public static TMP_FontAsset unifont = ScriptableObject.CreateInstance<TMP_FontAsset>();
+        public static TMP_FontAsset createFont()
+        {
+            TMP_FontAsset unifont = ScriptableObject.CreateInstance<TMP_FontAsset>();
+
+            string bundleName = Assembly.GetExecutingAssembly().GetManifestResourceNames().Single(str => str.EndsWith("unifont2017"));
+            Stream bundleStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(bundleName);
+            AssetBundle bundle = AssetBundle.LoadFromStream(bundleStream);
+            bundle.LoadAsset<Shader>("assets/textmesh pro/required/shaders/tmp_bitmap.shader");
+
+            unifont.name = "Unifont";
+
+            unifont.boldSpacing = 7;
+            unifont.boldStyle = 0.75f;
+            unifont.italicStyle = 35;
+            unifont.fontAssetType = TMP_FontAsset.FontAssetTypes.Bitmap;
+            unifont.normalSpacingOffset = 0;
+            unifont.normalStyle = 0;
+            unifont.tabSize = 1;
+
+            unifont.atlas = bundle.LoadAsset<Texture2D>("assets/unifont-15.asset");
+            unifont.material = bundle.LoadAsset<Material>("assets/unifont-15.asset");
+
+            unifont.AddFaceInfo(fontInfo);
+            unifont.AddGlyphInfo(characters);
+            unifont.AddKerningInfo(new KerningTable());
+
+            return unifont;
+        }
 
         public static FaceInfo fontInfo = new FaceInfo
         {      
@@ -1277,25 +1307,5 @@ namespace ObjectGrabber
                 xAdvance = 350
             }
         };
-
-        public static void unifontInit(Texture2D atlas, Material material)
-        {
-            unifont.name = "Unifont";
-
-            unifont.boldSpacing = 7;
-            unifont.boldStyle = 0.75f;
-            unifont.italicStyle = 35;
-            unifont.fontAssetType = TMP_FontAsset.FontAssetTypes.Bitmap;
-            unifont.normalSpacingOffset = 0;
-            unifont.normalStyle = 0;
-            unifont.tabSize = 1;
-
-            unifont.atlas = atlas;
-            unifont.material = material;
-
-            unifont.AddFaceInfo(fontInfo);
-            unifont.AddGlyphInfo(characters);
-            unifont.AddKerningInfo(new KerningTable());
-        }
     }
 }
