@@ -9,7 +9,7 @@ namespace ObjectGrabber
     using UnityEngine;
     using TMPro;
 
-    [BepInPlugin("org.bepinex.plugins.humanfallflat.objectgrabber", "Grab Count Tracker", "1.0.0")]
+    [BepInPlugin("org.bepinex.plugins.humanfallflat.objectgrabber", "Grab Count Tracker", "1.1.0")]
     [BepInProcess("Human.exe")]
     public class GrabberTracker : BaseUnityPlugin
     {
@@ -27,7 +27,7 @@ namespace ObjectGrabber
             isEnabled = false;
             grabs = 0;
 
-            setupTMP();
+            setupTMP(ref textObj, ref textVisuals, new Vector3(106.4688f, 9f, 0f));
             textVisuals.text = "Grabs: " + grabs;
             textObj.SetActive(isEnabled);
 
@@ -53,27 +53,30 @@ namespace ObjectGrabber
             instance.textVisuals.text = "Grabs: " + instance.grabs;
         }
 
-        private void setupTMP()
+        private static void setupTMP(ref GameObject gameObj, ref TextMeshProUGUI textContent, Vector3 coords)
         {
-            //comments show values for old font setup
-            textObj = new GameObject("GrabberText");
-            textObj.transform.parent = GameObject.Find("Menu").transform;
-            textObj.AddComponent<CanvasRenderer>();
+            gameObj = new GameObject("GrabberText");
+            gameObj.transform.parent = GameObject.Find("Menu").transform;
+            gameObj.AddComponent<CanvasRenderer>();
 
-            textVisuals = textObj.AddComponent<TextMeshProUGUI>();
-            textVisuals.color = Color.white; //black
-            textVisuals.fontSize = 50; //60
-            textVisuals.font = Resources.FindObjectsOfTypeAll<TMP_FontAsset>().Single(font => font.name == "Blogger_Sans-Bold SDF"); //Menu SDF
-            textVisuals.fontMaterial = Resources.FindObjectsOfTypeAll<Material>().Single(material => material.name == "Blogger_Sans-Bold SDF Instruction"); //remove line
-            textVisuals.enableWordWrapping = false;
-            textVisuals.alignment = TextAlignmentOptions.BaselineLeft;
+            textContent = gameObj.AddComponent<TextMeshProUGUI>();
+            textContent.color = Color.white;
+            textContent.fontSize = 50;
+            textContent.font = Resources.FindObjectsOfTypeAll<TMP_FontAsset>()
+                .Single(font => font.name == "Blogger_Sans-Bold SDF");
+            textContent.fontMaterial = Resources.FindObjectsOfTypeAll<Material>()
+                .Single(material => material.name == "Blogger_Sans-Bold SDF Instruction");
+            textContent.enableWordWrapping = false;
+            textContent.alignment = TextAlignmentOptions.BaselineLeft;
 
-            textObj.GetComponent<RectTransform>().anchorMin = Vector2.zero;
-            textObj.GetComponent<RectTransform>().anchorMax = Vector2.zero;
-            textObj.transform.localPosition = new Vector3(-854, -531, 0); //-858, -534, 0
-            textObj.transform.localRotation = Quaternion.identity;
-            textObj.transform.localScale = Vector3.one;
-            textObj.layer = LayerMask.NameToLayer("UI");
+            RectTransform textRect = gameObj.GetComponent<RectTransform>();
+            textRect.anchorMin = Vector2.zero;
+            textRect.anchorMax = Vector2.zero;
+            textRect.anchoredPosition3D = coords;
+
+            gameObj.transform.localRotation = Quaternion.identity;
+            gameObj.transform.localScale = Vector3.one;
+            gameObj.layer = LayerMask.NameToLayer("UI");
         }
     }
 }
