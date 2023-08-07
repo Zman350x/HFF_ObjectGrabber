@@ -16,7 +16,9 @@ namespace ObjectGrabber
         public static GrabberTracker instance;
         public bool isEnabled;
 
-        private uint grabs;
+        private static uint grabs; // changed from private to private static in case we ever want to grab this var with autosplitter
+        private static uint grabsAtCP; // set only once per checkpoint reached
+        private static uint grabsAtLevel; // set only at beginning of each level
 
         private GameObject textObj;
         private TextMeshProUGUI textVisuals;
@@ -33,24 +35,65 @@ namespace ObjectGrabber
 
             Harmony.CreateAndPatchAll(typeof(GrabberTracker));
 
-            Shell.RegisterCommand("grab_reset", (string x) => {
-                grabs = 0; textVisuals.text = "Grabs: " + grabs;
+            Shell.RegisterCommand("grab_reset", (string x) => { // reset grab counter, update text
+                grabs = grabsAtCP = 0;
+                textVisuals.text = "Grabs: " + grabs;
                 Shell.Print("Grab counter reset");
             }, "Reset grab counter to 0");
 
-            Shell.RegisterCommand("grab_toggle", (string x) => {
-                isEnabled = !isEnabled; textObj.SetActive(isEnabled);
-                grabs = 0; textVisuals.text = "Grabs: " + grabs;
+            Shell.RegisterCommand("grab_toggle", (string x) => { // reset grab counter, update text, toggle display of grab counter
+                isEnabled = !isEnabled;
+                textObj.SetActive(isEnabled);
+                grabs = grabsAtCP = 0;
+                textVisuals.text = "Grabs: " + grabs;
                 Shell.Print(isEnabled ? "Grab counter enabled" : "Grab counter disabled");
-            },"Enable/disable grab counter");
+            }, "Toggle grab counter");
         }
+
+        [HarmonyPatch(typeof(HumanAPI.Level), "Reset")] // for checkpoint reloads; Game.RestartCheckpoint() was giving me problems
+        [HarmonyPostfix]
+        private static void Reset(int checkpoint, int subObjectives)
+        {
+            grabs = grabsAtCP; // reset grab counter to what it was at the start of the checkpoint
+			refreshGrabText();
+		}
+
+        [HarmonyPatch(typeof(Game), "EnterCheckpoint")] // for when you enter a checkpoint
+        [HarmonyPrefix]
+        private static void EnterCheckpoint(int checkpoint, int subObjectives)
+        {
+            if (checkpoint > Game.instance.currentCheckpointNumber)
+            {
+                grabsAtCP = grabs; // update grabs when reloading a checkpoint to current grab counter
+            }
+        }
+
+        [HarmonyPatch(typeof(Game), "LevelLoaded")] // when a level finishes loading
+        [HarmonyPrefix]
+        private static void LevelLoaded()
+        {
+            grabsAtCP = grabsAtLevel = grabs; // update grabs when restarting level/checkpoint to current grab counter
+        }
+
+        [HarmonyPatch(typeof(Game), "RestartLevel")] // when a level is restarted
+        [HarmonyPostfix]
+        private static void RestartLevel(bool reset = true)
+        {
+            grabs = grabsAtLevel; // reset grab counter to what it was at the start of the level
+			refreshGrabText();
+		}
 
         [HarmonyPatch(typeof(GrabManager), "ObjectGrabbed")]
         [HarmonyPrefix]
         private static void ObjectGrabbed(GameObject grabObject)
         {
-            instance.grabs++;
-            instance.textVisuals.text = "Grabs: " + instance.grabs;
+            grabs++;
+            refreshGrabText();
+        }
+
+        private static void refreshGrabText()
+        {
+            instance.textVisuals.text = "Grabs: " + grabs;
         }
 
         private static void setupTMP(ref GameObject gameObj, ref TextMeshProUGUI textContent, Vector3 coords)
