@@ -1,3 +1,4 @@
 C:\Users\Temp\source\repos\ObjectGrabber\bin\Debug\ObjectGrabber.dll
 C:\Users\Temp\source\repos\ObjectGrabber\obj\Debug\ObjectGrabber.csproj.CoreCompileInputs.cache
 C:\Users\Temp\source\repos\ObjectGrabber\obj\Debug\ObjectGrabber.dll
+C:\Users\Temp\source\repos\ObjectGrabber\obj\Debug\ObjectGrabber.csproj.AssemblyReference.cache
