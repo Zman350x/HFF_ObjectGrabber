@@ -9,62 +9,64 @@ namespace ObjectGrabber
     using UnityEngine;
     using TMPro;
 
-    [BepInPlugin("org.bepinex.plugins.humanfallflat.objectgrabber", "Grab Count Tracker", "1.1.0")]
+    [BepInPlugin("org.bepinex.plugins.humanfallflat.objectgrabber", "Grab Count Tracker", "1.2.0")]
     [BepInProcess("Human.exe")]
     public class GrabberTracker : BaseUnityPlugin
     {
-        public static GrabberTracker instance;
-        public bool isEnabled;
+        public static bool isEnabled;
 
-        private static uint grabs; // changed from private to private static in case we ever want to grab this var with autosplitter
-        private static uint grabsAtCP; // set only once per checkpoint reached
-        private static uint grabsAtLevel; // set only at beginning of each level
+        private static uint grabs; //current grab count
+        private static uint grabsAtCP; //grab count as of start of current checkpoint
+        private static uint grabsAtLevel; //grab count as of start of current level
 
-        private GameObject textObj;
-        private TextMeshProUGUI textVisuals;
+        private static GameObject textObj;
+        private static TextMeshProUGUI textVisuals;
 
-        public void Start()
+        static GrabberTracker()
         {
-            instance = this;
             isEnabled = false;
             grabs = 0;
 
             setupTMP(ref textObj, ref textVisuals, new Vector3(106.4688f, 9f, 0f));
-            textVisuals.text = "Grabs: " + grabs;
+            refreshGrabText();
             textObj.SetActive(isEnabled);
 
-            Harmony.CreateAndPatchAll(typeof(GrabberTracker));
+            Harmony.CreateAndPatchAll(typeof(GrabberTracker), "GrabberTracker");
 
-            Shell.RegisterCommand("grab_reset", (string x) => { // reset grab counter, update text
-                grabs = grabsAtCP = 0;
-                textVisuals.text = "Grabs: " + grabs;
+            //reset grab counter, update text
+            Shell.RegisterCommand("grab_reset", (string x) => {
+                grabs = grabsAtCP = grabsAtLevel = 0;
+                refreshGrabText();
                 Shell.Print("Grab counter reset");
             }, "Reset grab counter to 0");
 
-            Shell.RegisterCommand("grab_toggle", (string x) => { // reset grab counter, update text, toggle display of grab counter
+            //toggle display of grab counter, reset grab counter, update text
+            Shell.RegisterCommand("grab_toggle", (string x) => {
                 isEnabled = !isEnabled;
                 textObj.SetActive(isEnabled);
-                grabs = grabsAtCP = 0;
-                textVisuals.text = "Grabs: " + grabs;
+                grabs = grabsAtCP = grabsAtLevel = 0;
+                refreshGrabText();
                 Shell.Print(isEnabled ? "Grab counter enabled" : "Grab counter disabled");
             }, "Toggle grab counter");
         }
 
-        [HarmonyPatch(typeof(HumanAPI.Level), "Reset")] // for checkpoint reloads; Game.RestartCheckpoint() was giving me problems
+        //reset grab counter to what it was at the start of the checkpoint
+        [HarmonyPatch(typeof(HumanAPI.Level), "Reset")]
         [HarmonyPostfix]
         private static void Reset(int checkpoint, int subObjectives)
         {
-            grabs = grabsAtCP; // reset grab counter to what it was at the start of the checkpoint
+            grabs = grabsAtCP;
 			refreshGrabText();
 		}
 
-        [HarmonyPatch(typeof(Game), "EnterCheckpoint")] // for when you enter a checkpoint
+        //update grabs when reloading a checkpoint to current grab counter
+        [HarmonyPatch(typeof(Game), "EnterCheckpoint")]
         [HarmonyPrefix]
         private static void EnterCheckpoint(int checkpoint, int subObjectives)
         {
             if (checkpoint > Game.instance.currentCheckpointNumber)
             {
-                grabsAtCP = grabs; // update grabs when reloading a checkpoint to current grab counter
+                grabsAtCP = grabs;
             }
         }
 
@@ -93,7 +95,7 @@ namespace ObjectGrabber
 
         private static void refreshGrabText()
         {
-            instance.textVisuals.text = "Grabs: " + grabs;
+            textVisuals.text = "Grabs: " + grabs;
         }
 
         private static void setupTMP(ref GameObject gameObj, ref TextMeshProUGUI textContent, Vector3 coords)
