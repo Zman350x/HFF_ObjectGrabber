@@ -9,6 +9,41 @@ namespace ObjectGrabber
     using BepInEx;
     using HarmonyLib;
     using TMPro;
+    using HumanAPI;
+    using Multiplayer;
+
+    public enum LevelName
+    {
+        Menu = -1,
+        Mansion = 0,
+        Train = 1,
+        Carry = 2,
+        Mountain = 3,
+        Demolition = 4,
+        Castle = 5,
+        Water = 6,
+        PowerPlant = 7,
+        Aztec = 8,
+        Dark = 9,
+        Steam = 10,
+        Ice = 11,
+        Reprise = 12,
+        Credits = 13,
+        Thermal = 14,
+        Factory = 15,
+        Golf = 16,
+        City = 17,
+        Forest = 18,
+        Laboratory = 19,
+        Lumber = 20,
+        RedRock = 21,
+        Tower = 22,
+        Miniature = 23,
+        CopperWorld = 24,
+        Workshop = 25,
+        Lobby = 26,
+        Other = 27
+    }
 
     [BepInPlugin("org.bepinex.plugins.humanfallflat.objectgrabber", "Grab Count Tracker", "1.2.0")]
     [BepInProcess("Human.exe")]
@@ -26,10 +61,11 @@ namespace ObjectGrabber
         private static GameObject textObj;
         private static TextMeshProUGUI textVisuals;
 
-        //static fields for practice mode lock progess
-        private static bool isCastle;
+        //static fields for practice mode tools
+        private static LevelName currentLevel;
         private static BreakableLock castleLock;
         private static float castleLockImpact;
+        private static bool isPassedLoadingZone;
 
         static GrabberTracker()
         {
@@ -86,9 +122,13 @@ namespace ObjectGrabber
             if (isPractice)
             {
                 //Adds lock pogress to text if in practice mode and the castle lock hasn't shattered yet
-                if (isCastle && !castleLock.shattered)
+                if (currentLevel == LevelName.Castle && !castleLock.shattered)
                 {
                     textVisuals.text = $"Practice Mode\nLock Progress: {castleLockImpact}/300\nGrabs: {grabs}";
+                }
+                else if (currentLevel == LevelName.Water)
+                {
+                    textVisuals.text = $"Practice Mode\nLoading Zone Triggered: {isPassedLoadingZone}\nGrabs: {grabs}";
                 }
                 else
                 {
@@ -131,22 +171,64 @@ namespace ObjectGrabber
         }
 
         //update GrabsAtLevel and grabsAtCP when entering a new level
-        //checks if the level being loaded is castle & instantiates castleLock if so
-        [HarmonyPatch(typeof(Game), "LevelLoaded")]
+        //sets the currentLevel & loads any practice tools if needed
+        [HarmonyPatch(typeof(Game), "AfterLoad")]
         [HarmonyPrefix]
-        private static void LevelLoaded()
+        private static void AfterLoad(int checkpointNumber, int subobjectives)
         {
             grabsAtCP = grabsAtLevel = grabs;
+            isPassedLoadingZone = false;
 
-            if (SceneManager.GetActiveScene().name.Equals("Siege"))
+            //set currentLevel based on level loaded
+            switch (Game.instance.currentLevelType)
             {
-                isCastle = true;
-                castleLock = GameObject.Find("Prison-Walls.001").GetComponentInChildren<BreakableLock>();
+                case WorkshopItemSource.BuiltIn:
+                {
+                    currentLevel = (LevelName)Game.instance.currentLevelNumber;
+                    break;
+                }
+                case WorkshopItemSource.EditorPick:
+                {
+                    currentLevel = (LevelName) Game.instance.currentLevelNumber + 14;
+                    break;
+                }
+                case WorkshopItemSource.Subscription:
+	            case WorkshopItemSource.LocalWorkshop:
+                {
+                    currentLevel = LevelName.Workshop;
+                    break;
+                }
+                case WorkshopItemSource.BuiltInLobbies:
+	            case WorkshopItemSource.SubscriptionLobbies:
+                {
+                    currentLevel = LevelName.Lobby;
+                    break;
+                }
+                default:
+                {
+                    currentLevel = LevelName.Other;
+                    break;
+                }
             }
-            else
+
+            //AfterLoad() is only ever called in the Inactive state when loading a lobby
+            if (Game.instance.state == GameState.Inactive)
             {
-                isCastle = false;
+                currentLevel = LevelName.Lobby;
             }
+
+            //load practice tools based on level if needed
+            switch (currentLevel)
+            {
+                case LevelName.Castle:
+                {
+                    castleLock = GameObject.Find("Prison-Walls.001").GetComponentInChildren<BreakableLock>();
+                    break;
+                }
+                default: { break; }
+            }
+
+            refreshGrabText();
         }
 
         //update grabsAtCP when entering a new checkpoint
@@ -154,10 +236,33 @@ namespace ObjectGrabber
         [HarmonyPrefix]
         private static void EnterCheckpoint(int checkpoint, int subObjectives)
         {
-            if (checkpoint > Game.instance.currentCheckpointNumber)
+            bool flag = false;
+            if (Game.instance.currentCheckpointNumber < checkpoint)
+            {
+                flag = true;
+            }
+            else if (Game.currentLevel.nonLinearCheckpoints && Game.instance.currentCheckpointNumber != checkpoint)
+            {
+                flag = true;
+            }
+            else if (Game.instance.currentCheckpointNumber == checkpoint && subObjectives != 0)
+            {
+                flag = true;
+            }
+
+            if (flag)
             {
                 grabsAtCP = grabs;
             }
+        }
+
+        //update grabsAtCP when entering a new checkpoint
+        [HarmonyPatch(typeof(Game), "EnterPassZone")]
+        [HarmonyPrefix]
+        private static void EnterPassZone()
+        {
+            isPassedLoadingZone = true;
+            refreshGrabText();
         }
 
         //reset grab counter to what it was at the start of the level
@@ -173,7 +278,7 @@ namespace ObjectGrabber
         }
 
         //reset grab counter to what it was at the start of the checkpoint, if in pracice mode
-        [HarmonyPatch(typeof(HumanAPI.Level), "Reset")]
+        [HarmonyPatch(typeof(Level), "Reset")]
         [HarmonyPostfix]
         private static void Reset(int checkpoint, int subObjectives)
         {
@@ -182,6 +287,15 @@ namespace ObjectGrabber
                 grabs = grabsAtCP;
                 refreshGrabText();
             }
+        }
+
+        //set the currentLevel to Menu
+        [HarmonyPatch(typeof(App), "EnterMenu")]
+        [HarmonyPostfix]
+        private static void EnterMenu()
+        {
+            currentLevel = LevelName.Menu;
+            refreshGrabText();
         }
 
         //increment grabs counter when the game detects a grab; 
@@ -193,7 +307,7 @@ namespace ObjectGrabber
             refreshGrabText();
         }
 
-        [HarmonyPatch(typeof(HumanAPI.Breakable), "FixedUpdateOnImpact")]
+        [HarmonyPatch(typeof(Breakable), "FixedUpdateOnImpact")]
         [HarmonyPostfix]
         private static void FixedUpdateOnImpact(float ___accumulatedImpact)
         {
