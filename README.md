@@ -13,6 +13,9 @@ This mod uses TextMeshPro for the counter text, so it should scale appropriately
 regardless of resolution. This also has the benefit of allowing for the use of a
 Human: Fall Flat font and style.
 ## Installation
+### Mod Manager
+Now avaliable on Thunderstore (as of v1.2.0)!!!
+### Manual
 1)	Download the current 32-bit (x86) version of BepInEx 5 from
 https://github.com/BepInEx/BepInEx/releases (*do not download BepInEx 6*)
     - i.e. "BepInEx_x86_5.#.#.#.zip"

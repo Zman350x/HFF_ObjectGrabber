@@ -1,25 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32929.386
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectGrabber", "ObjectGrabber.csproj", "{5EA00812-3719-49E3-86B8-10A2903DA6EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectGrabber", "src\ObjectGrabber.csproj", "{42B1A6C6-2360-475A-8454-6B1DBE60E91C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5EA00812-3719-49E3-86B8-10A2903DA6EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5EA00812-3719-49E3-86B8-10A2903DA6EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5EA00812-3719-49E3-86B8-10A2903DA6EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5EA00812-3719-49E3-86B8-10A2903DA6EB}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8A86D77C-7CB1-4F71-A670-EEC6F914D0ED}
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42B1A6C6-2360-475A-8454-6B1DBE60E91C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42B1A6C6-2360-475A-8454-6B1DBE60E91C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42B1A6C6-2360-475A-8454-6B1DBE60E91C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42B1A6C6-2360-475A-8454-6B1DBE60E91C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

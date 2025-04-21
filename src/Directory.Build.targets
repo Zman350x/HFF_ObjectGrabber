@@ -1,0 +1,393 @@
+<Project>
+  <PropertyGroup>
+    <SharedLibsDir>$(MSBuildThisFileDirectory)..\lib</SharedLibsDir>
+  </PropertyGroup>
+    
+  <ItemGroup>
+    <Reference Update="0Harmony">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="Assembly-CSharp">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="Assembly-CSharp-firstpass">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="BepInEx">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\BepInEx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="BepInEx.Harmony">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\BepInEx.Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="BepInEx.Preloader">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\BepInEx.Preloader.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="HarmonyXInterop">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\HarmonyXInterop.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="HumanAPI">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\HumanAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="KdTreeLib">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\KdTreeLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="MeshBakerCore">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\MeshBakerCore.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="Mono.Cecil">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\Mono.Cecil.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="Mono.Cecil.Mdb">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\Mono.Cecil.Mdb.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="Mono.Cecil.Pdb">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\Mono.Cecil.Pdb.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="Mono.Cecil.Rocks">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\Mono.Cecil.Rocks.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="Mono.Posix">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\Mono.Posix.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="Mono.Security">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\Mono.Security.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="MonoMod.RuntimeDetour">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\MonoMod.RuntimeDetour.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="MonoMod.Utils">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\MonoMod.Utils.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="pb_Stl">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\pb_Stl.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="Poly2Tri">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\Poly2Tri.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="ProBuilderCore-Unity5">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\ProBuilderCore-Unity5.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="ProBuilderMeshOps-Unity5">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\ProBuilderMeshOps-Unity5.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="SumoPlatformLibrary">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\SumoPlatformLibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.AccessibilityModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.AccessibilityModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.AIModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.AIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.Analytics">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.Analytics.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.AnimationModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.AnimationModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.ARModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.ARModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.AssetBundleModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.AudioModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.AudioModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.ClothModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.ClothModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.ClusterInputModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.ClusterInputModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.ClusterRendererModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.ClusterRendererModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.CoreModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.CrashReportingModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.CrashReportingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.DirectorModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.DirectorModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.GameCenterModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.GameCenterModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.GridModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.GridModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.ImageConversionModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.IMGUIModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.InputModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.InputModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.JSONSerializeModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.Networking">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.Networking.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.ParticlesLegacyModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.ParticlesLegacyModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.ParticleSystemModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.PerformanceReportingModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.PerformanceReportingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.Physics2DModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.Physics2DModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.PhysicsModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.ScreenCaptureModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.SharedInternalsModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.SharedInternalsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.SpatialTracking">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.SpatialTracking.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.SpriteMaskModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.SpriteMaskModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.SpriteShapeModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.SpriteShapeModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.StandardEvents">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.StandardEvents.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.StyleSheetsModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.StyleSheetsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.TerrainModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.TerrainModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.TerrainPhysicsModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.TextRenderingModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.TilemapModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.TilemapModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.Timeline">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.Timeline.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.UI">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.UIElementsModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.UIElementsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.UIModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.UIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.UNETModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.UNETModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.UnityAnalyticsModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.UnityConnectModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.UnityConnectModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.UnityWebRequestAudioModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.UnityWebRequestModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.UnityWebRequestTextureModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.UnityWebRequestWWWModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.VehiclesModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.VehiclesModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.VideoModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.VideoModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.VRModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.VRModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.WebModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.WebModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityEngine.WindModule">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityEngine.WindModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="UnityFbxPrefab">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\UnityFbxPrefab.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

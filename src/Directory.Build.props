@@ -1,0 +1,13 @@
+<Project>
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>ObjectGrabber</RootNamespace>
+    <SharedBuildDir>$(MSBuildThisFileDirectory)..\build</SharedBuildDir>
+    <OutputPath>$(SharedBuildDir)\bin\output\</OutputPath>
+    <BaseIntermediateOutputPath>$(SharedBuildDir)\obj\$(MSBuildProjectName)\$(Configuration)\</BaseIntermediateOutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+</Project>
