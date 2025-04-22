@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <SharedLibsDir>$(MSBuildThisFileDirectory)..\lib</SharedLibsDir>
+    <SharedLibsDir>$(RootDir)\lib</SharedLibsDir>
   </PropertyGroup>
     
   <ItemGroup>

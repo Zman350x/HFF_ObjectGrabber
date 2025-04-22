@@ -1,6 +1,6 @@
 {
     "name": "Grab_Count_Tracker",
-    "version_number": "1.2.1",
+    "version_number": "1.3.0",
     "website_url": "https://github.com/Zman350x/HFF_ObjectGrabber",
     "description": "Counts the number of times the player grabs something. The mod is primarily intended to be used in the \"minimum grabs\" challenge run of the game.",
     "dependencies": [ "BepInEx-BepInExPack_HumanFallFlat-5.4.2302" ]

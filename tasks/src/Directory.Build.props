@@ -3,7 +3,8 @@
     <OutputType>Library</OutputType>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>ObjectGrabberBuildTasks</RootNamespace>
-    <SharedBuildDir>$(MSBuildThisFileDirectory)..\build</SharedBuildDir>
+    <RootDir>$(MSBuildThisFileDirectory)..\..</RootDir>
+    <SharedBuildDir>$(RootDir)\tasks\build</SharedBuildDir>
     <OutputPath>$(SharedBuildDir)\bin\tasks\</OutputPath>
     <BaseIntermediateOutputPath>$(SharedBuildDir)\obj\$(MSBuildProjectName)\$(Configuration)\</BaseIntermediateOutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
