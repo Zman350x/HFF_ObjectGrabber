@@ -19,56 +19,59 @@ namespace ObjectGrabber
 
         private uint grabs;
 
-        private Harmony harmony;
         private GameObject textObj;
         private TextMeshProUGUI textVisuals;
 
-        private GrabberTracker() => instance = this;
-
         private void Awake()
         {
-            harmony = new Harmony(nameof(GrabberTracker));
-            harmony.PatchAll(typeof(GrabberTracker));
+            instance = this;
 
             defaultEnabled = Config.Bind("General.Toggles",
                                          "DefaultEnabled",
                                          false,
                                          "Whether or not the \"Grab: X\" text is visible by default when you launch the game.");
-            
+
             isEnabled = defaultEnabled.Value;
+
+            Harmony.CreateAndPatchAll(typeof(GrabberTracker), "GrabberTracker");
         }
 
         private void OnDestroy() 
         {
             Destroy(textObj);
-            harmony.UnpatchSelf();
+            Harmony.UnpatchID("GrabberTracker");
         }
 
         public void Start()
         {
             SetupTMP(ref textObj, ref textVisuals, new Vector3(106.4688f, 9f, 0f));
             textObj.SetActive(isEnabled);
-            UpdateText(grabs);
+            grabs = 0;
+            UpdateText();
 
             Shell.RegisterCommand("grab_reset", (string x) => {
-                UpdateText(grabs = 0);
+                grabs = 0; UpdateText();
                 Shell.Print("Grab counter reset");
             }, "Reset grab counter to 0");
 
             Shell.RegisterCommand("grab_toggle", (string x) => {
-                textObj.SetActive(isEnabled = !isEnabled);
-                UpdateText(grabs = 0);
+                isEnabled = !isEnabled; textObj.SetActive(isEnabled);
+                grabs = 0; UpdateText();
                 Shell.Print(isEnabled ? "Grab counter enabled" : "Grab counter disabled");
             }, "Enable/disable grab counter");
         }
 
-		private void UpdateText(uint count) => textVisuals.text = "Grabs: " + count;
+        private void UpdateText()
+        {
+            textVisuals.text = "Grabs: " + grabs;
+        }
 
-		[HarmonyPatch(typeof(GrabManager), "ObjectGrabbed")]
+        [HarmonyPatch(typeof(GrabManager), "ObjectGrabbed")]
         [HarmonyPrefix]
         private static void ObjectGrabbed(GameObject grabObject)
         {
-            instance.UpdateText(instance.grabs++);
+            ++instance.grabs;
+            instance.UpdateText();
         }
 
         private static void SetupTMP(ref GameObject gameObj, ref TextMeshProUGUI textContent, Vector3 coords)
