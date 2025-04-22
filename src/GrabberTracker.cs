@@ -1,30 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BepInEx;
+﻿using System.Linq;
 
 namespace ObjectGrabber
 {
+    using BepInEx;
+    using BepInEx.Configuration;
     using HarmonyLib;
     using UnityEngine;
     using TMPro;
 
-    [BepInPlugin("top.zman350x.hff.objectgrabber", "Grab Count Tracker", "1.2.1")]
+    [BepInPlugin("top.zman350x.hff.objectgrabber", "Grab Count Tracker", "1.3.0")]
     [BepInProcess("Human.exe")]
     public class GrabberTracker : BaseUnityPlugin
     {
         public static GrabberTracker instance;
         public bool isEnabled;
+        
+        private ConfigEntry<bool> defaultEnabled;
 
         private uint grabs;
 
         private GameObject textObj;
         private TextMeshProUGUI textVisuals;
 
+        private void Awake()
+        {
+            defaultEnabled = Config.Bind("General.Toggles",
+                                         "DefaultEnabled",
+                                         false,
+                                         "Whether or not the \"Grab: X\" text is visible by default when you launch the game.");
+        }
+
         public void Start()
         {
             instance = this;
-            isEnabled = false;
+            isEnabled = defaultEnabled.Value;
             grabs = 0;
 
             setupTMP(ref textObj, ref textVisuals, new Vector3(106.4688f, 9f, 0f));
