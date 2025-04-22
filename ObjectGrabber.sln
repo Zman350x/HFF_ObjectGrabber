@@ -5,6 +5,12 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectGrabber", "src\ObjectGrabber.csproj", "{42B1A6C6-2360-475A-8454-6B1DBE60E91C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tasks", "tasks", "{469B9DFD-BFB7-434D-AE55-1243C0983EC5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D882DA78-90FF-4832-9FAB-2FC07AA8CB61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZipTask", "tasks\src\ZipTask\ZipTask.csproj", "{B2966E08-F5A2-445B-9FF3-7C85483CDC1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +24,13 @@ Global
 		{42B1A6C6-2360-475A-8454-6B1DBE60E91C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42B1A6C6-2360-475A-8454-6B1DBE60E91C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42B1A6C6-2360-475A-8454-6B1DBE60E91C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2966E08-F5A2-445B-9FF3-7C85483CDC1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2966E08-F5A2-445B-9FF3-7C85483CDC1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2966E08-F5A2-445B-9FF3-7C85483CDC1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2966E08-F5A2-445B-9FF3-7C85483CDC1F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D882DA78-90FF-4832-9FAB-2FC07AA8CB61} = {469B9DFD-BFB7-434D-AE55-1243C0983EC5}
+		{B2966E08-F5A2-445B-9FF3-7C85483CDC1F} = {D882DA78-90FF-4832-9FAB-2FC07AA8CB61}
 	EndGlobalSection
 EndGlobal

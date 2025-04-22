@@ -11,5 +11,30 @@
     <Reference Include="UnityEngine.CoreModule" />
     <Reference Include="UnityEngine.UI" />
     <Reference Include="UnityEngine.UIModule" />
+    <ProjectReference Include="$(RootDir)\tasks\src\ZipTask\ZipTask.csproj">
+      <Private>false</Private>
+    </ProjectReference>
   </ItemGroup>
+
+  <UsingTask TaskName="ObjectGrabberBuildTasks.ZipTask"
+             AssemblyFile="$(RootDir)\tasks\build\bin\tasks\ZipTask.dll"/>
+
+  <Target Name="ZipOutput"
+          AfterTargets="CopyFilesToOutputDirectory">
+
+    <ItemGroup>
+      <ZipFiles Include="$(RootDir)\README.md" />
+      <ZipFiles Include="$(RootDir)\icon.png" />
+      <ZipFiles Include="$(RootDir)\manifest.json" />
+      <ZipFiles Include="$(OutputPath)$(AssemblyName).dll" />
+    </ItemGroup>
+
+    <Message Importance="high" Text="Zipping build" />
+
+    <ZipTask Files="@(ZipFiles)"
+             OutputName="GrabCountTracker"
+             OutputLocation="$(SharedBuildDir)"
+    />
+  </Target>
+
 </Project>

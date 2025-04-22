@@ -14,3 +14,7 @@ run:
 clean:
 	rm -rf build/obj
 	rm -rf build/bin
+	rm -rf build/GrabCountTracker.zip
+	rm -rf tasks/build/obj
+	rm -rf tasks/build/bin
+

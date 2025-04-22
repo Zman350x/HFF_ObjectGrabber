@@ -9,7 +9,7 @@ namespace ObjectGrabber
     using UnityEngine;
     using TMPro;
 
-    [BepInPlugin("top.zman350x.hff.objectgrabber", "Grab Count Tracker", "1.2.0")]
+    [BepInPlugin("top.zman350x.hff.objectgrabber", "Grab Count Tracker", "1.2.1")]
     [BepInProcess("Human.exe")]
     public class GrabberTracker : BaseUnityPlugin
     {
