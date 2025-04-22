@@ -14,7 +14,7 @@ regardless of resolution. This also has the benefit of allowing for the use of a
 Human: Fall Flat font and style.
 ## Installation
 ### Mod Manager
-Now avaliable on Thunderstore (as of v1.2.0),
+Now available on Thunderstore (as of v1.2.0),
 [check it out here](https://thunderstore.io/c/human-fall-flat/p/Zman350x/Grab_Count_Tracker/)
 !
 ### Manual
