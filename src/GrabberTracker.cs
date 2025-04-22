@@ -30,6 +30,11 @@ namespace ObjectGrabber
                                          "Whether or not the \"Grab: X\" text is visible by default when you launch the game.");
         }
 
+        private void OnDestroy() 
+		{
+			Destroy(textObj);
+		}
+
         public void Start()
         {
             instance = this;
@@ -87,7 +92,5 @@ namespace ObjectGrabber
             gameObj.transform.localScale = Vector3.one;
             gameObj.layer = LayerMask.NameToLayer("UI");
         }
-
-        public void OnDestroy() => Destroy(textObj);
     }
 }
