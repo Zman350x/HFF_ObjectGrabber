@@ -10,7 +10,7 @@ namespace ObjectGrabber
 
     [BepInPlugin("top.zman350x.hff.objectgrabber", "Grab Count Tracker", "1.3.0")]
     [BepInProcess("Human.exe")]
-    public class GrabberTracker : BaseUnityPlugin
+    public sealed class GrabberTracker : BaseUnityPlugin
     {
         public static GrabberTracker instance;
         public bool isEnabled;
@@ -24,45 +24,57 @@ namespace ObjectGrabber
 
         private void Awake()
         {
+            instance = this;
+
             defaultEnabled = Config.Bind("General.Toggles",
                                          "DefaultEnabled",
                                          false,
                                          "Whether or not the \"Grab: X\" text is visible by default when you launch the game.");
+
+            isEnabled = defaultEnabled.Value;
+
+            Harmony.CreateAndPatchAll(typeof(GrabberTracker), "GrabberTracker");
+        }
+
+        private void OnDestroy() 
+        {
+            Destroy(textObj);
+            Harmony.UnpatchID("GrabberTracker");
         }
 
         public void Start()
         {
-            instance = this;
-            isEnabled = defaultEnabled.Value;
-            grabs = 0;
-
-            setupTMP(ref textObj, ref textVisuals, new Vector3(106.4688f, 9f, 0f));
-            textVisuals.text = "Grabs: " + grabs;
+            SetupTMP(ref textObj, ref textVisuals, new Vector3(106.4688f, 9f, 0f));
             textObj.SetActive(isEnabled);
-
-            Harmony.CreateAndPatchAll(typeof(GrabberTracker), "GrabberTracker");
+            grabs = 0;
+            UpdateText();
 
             Shell.RegisterCommand("grab_reset", (string x) => {
-                grabs = 0; textVisuals.text = "Grabs: " + grabs;
+                grabs = 0; UpdateText();
                 Shell.Print("Grab counter reset");
             }, "Reset grab counter to 0");
 
             Shell.RegisterCommand("grab_toggle", (string x) => {
                 isEnabled = !isEnabled; textObj.SetActive(isEnabled);
-                grabs = 0; textVisuals.text = "Grabs: " + grabs;
+                grabs = 0; UpdateText();
                 Shell.Print(isEnabled ? "Grab counter enabled" : "Grab counter disabled");
-            },"Enable/disable grab counter");
+            }, "Enable/disable grab counter");
+        }
+
+        private void UpdateText()
+        {
+            textVisuals.text = "Grabs: " + grabs;
         }
 
         [HarmonyPatch(typeof(GrabManager), "ObjectGrabbed")]
         [HarmonyPrefix]
         private static void ObjectGrabbed(GameObject grabObject)
         {
-            instance.grabs++;
-            instance.textVisuals.text = "Grabs: " + instance.grabs;
+            ++instance.grabs;
+            instance.UpdateText();
         }
 
-        private static void setupTMP(ref GameObject gameObj, ref TextMeshProUGUI textContent, Vector3 coords)
+        private static void SetupTMP(ref GameObject gameObj, ref TextMeshProUGUI textContent, Vector3 coords)
         {
             gameObj = new GameObject("GrabberText");
             gameObj.transform.parent = GameObject.Find("Menu").transform;
