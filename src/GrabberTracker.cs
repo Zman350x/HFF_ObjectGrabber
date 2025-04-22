@@ -31,9 +31,9 @@ namespace ObjectGrabber
         }
 
         private void OnDestroy() 
-		{
-			Destroy(textObj);
-		}
+        {
+            Destroy(textObj);
+        }
 
         public void Start()
         {
@@ -59,7 +59,7 @@ namespace ObjectGrabber
             },"Enable/disable grab counter");
         }
 
-		[HarmonyPatch(typeof(GrabManager), "ObjectGrabbed")]
+        [HarmonyPatch(typeof(GrabManager), "ObjectGrabbed")]
         [HarmonyPrefix]
         private static void ObjectGrabbed(GameObject grabObject)
         {
