@@ -45,7 +45,7 @@ namespace ObjectGrabber
             },"Enable/disable grab counter");
         }
 
-        [HarmonyPatch(typeof(GrabManager), "ObjectGrabbed")]
+		[HarmonyPatch(typeof(GrabManager), "ObjectGrabbed")]
         [HarmonyPrefix]
         private static void ObjectGrabbed(GameObject grabObject)
         {
@@ -78,5 +78,7 @@ namespace ObjectGrabber
             gameObj.transform.localScale = Vector3.one;
             gameObj.layer = LayerMask.NameToLayer("UI");
         }
+
+        public void OnDestroy() => Destroy(textObj);
     }
 }
