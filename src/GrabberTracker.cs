@@ -8,7 +8,7 @@ namespace ObjectGrabber
     using UnityEngine;
     using TMPro;
 
-    [BepInPlugin("top.zman350x.hff.objectgrabber", "Grab Count Tracker", "1.3.0")]
+    [BepInPlugin("top.zman350x.hff.objectgrabber", "Grab Count Tracker", "1.3.1")]
     [BepInProcess("Human.exe")]
     public sealed class GrabberTracker : BaseUnityPlugin
     {
@@ -42,7 +42,7 @@ namespace ObjectGrabber
             Harmony.UnpatchID("GrabberTracker");
         }
 
-        public void Start()
+        private void Start()
         {
             SetupTMP(ref textObj, ref textVisuals, new Vector3(106.4688f, 9f, 0f));
             textObj.SetActive(isEnabled);
@@ -50,15 +50,29 @@ namespace ObjectGrabber
             UpdateText();
 
             Shell.RegisterCommand("grab_reset", (string x) => {
-                grabs = 0; UpdateText();
-                Shell.Print("Grab counter reset");
+                ResetGrabCounter();
             }, "Reset grab counter to 0");
 
             Shell.RegisterCommand("grab_toggle", (string x) => {
-                isEnabled = !isEnabled; textObj.SetActive(isEnabled);
-                grabs = 0; UpdateText();
-                Shell.Print(isEnabled ? "Grab counter enabled" : "Grab counter disabled");
+                SetGrabCounterState(!isEnabled);
             }, "Enable/disable grab counter");
+        }
+
+        public void ResetGrabCounter(bool print = true)
+        {
+            grabs = 0;
+            UpdateText();
+            if (print)
+                Shell.Print("Grab counter reset");
+        }
+
+        public void SetGrabCounterState(bool state, bool print = true)
+        {
+            isEnabled = state;
+            textObj.SetActive(isEnabled);
+            ResetGrabCounter(false);
+            if (print)
+                Shell.Print(isEnabled ? "Grab counter enabled" : "Grab counter disabled");
         }
 
         private void UpdateText()
