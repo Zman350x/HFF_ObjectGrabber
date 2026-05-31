@@ -2,7 +2,7 @@
   <PropertyGroup>
     <SharedLibsDir>$(RootDir)\lib</SharedLibsDir>
   </PropertyGroup>
-    
+
   <ItemGroup>
     <Reference Update="0Harmony">
       <SpecificVersion>False</SpecificVersion>
@@ -387,6 +387,11 @@
     <Reference Update="UnityFbxPrefab">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(SharedLibsDir)\UnityFbxPrefab.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Update="ZmanBaseMod">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharedLibsDir)\ZmanBaseMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

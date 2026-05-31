@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyName>ObjectGrabber</AssemblyName>
   </PropertyGroup>
@@ -11,6 +11,7 @@
     <Reference Include="UnityEngine.CoreModule" />
     <Reference Include="UnityEngine.UI" />
     <Reference Include="UnityEngine.UIModule" />
+    <Reference Include="ZmanBaseMod" />
     <ProjectReference Include="$(RootDir)\tasks\src\ZipTask\ZipTask.csproj">
       <Private>false</Private>
     </ProjectReference>

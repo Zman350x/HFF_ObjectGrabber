@@ -18,7 +18,7 @@ namespace ObjectGrabberBuildTasks
 
         [Output]
         public string OutputZipFile { get; set; }
-        
+
         public override bool Execute()
         {
             string directory_to_zip = Path.Combine(OutputLocation, OutputName);
@@ -26,7 +26,7 @@ namespace ObjectGrabberBuildTasks
             // Clear out anything that may have been left in there
             if (Directory.Exists(directory_to_zip))
             {
-                Directory.Delete(directory_to_zip, true); 
+                Directory.Delete(directory_to_zip, true);
             }
             Directory.CreateDirectory(directory_to_zip);
 
@@ -52,7 +52,7 @@ namespace ObjectGrabberBuildTasks
             ZipFile.CreateFromDirectory(directory_to_zip, OutputZipFile);
 
             Directory.Delete(directory_to_zip, true);
-            
+
             return true;
         }
     }

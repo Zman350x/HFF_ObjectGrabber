@@ -3,7 +3,7 @@
     <AssemblyName>ZipTask</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference 
+    <PackageReference
       Include="Microsoft.Build.Utilities.Core"
       Version="16.11.0"
       PrivateAssets="all"

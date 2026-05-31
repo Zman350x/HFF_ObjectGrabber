@@ -4,9 +4,11 @@ debug:
 release:
 	msbuild -restore ObjectGrabber.sln /property:Configuration="Release"
 
-run:
+copy:
 	-pkill Human
 	cp build/bin/output/ObjectGrabber.dll ~/.steam/steam/steamapps/common/"Human Fall Flat"/BepInEx/plugins/ObjectGrabber.dll
+
+run: copy
 	(steam steam://rungameid/477160 &)
 
 .PHONY: clean
