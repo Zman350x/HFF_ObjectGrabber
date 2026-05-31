@@ -41,19 +41,19 @@ namespace ObjectGrabber
         {
             SetGrabCounterState(isEnabled);
 
-            Shell.RegisterCommand("grab_reset", (string txt) => {
+            Shell.RegisterCommand("grab_reset", () => {
                 ResetGrabCounter();
             }, "USAGE: grab_reset\r\n\r\nResets the grab counter to 0.");
 
-            Shell.RegisterCommand("grab_toggle", (string txt) => {
+            Shell.RegisterCommand("grab_toggle", () => {
                 SetGrabCounterState(!isEnabled);
             }, "USAGE: grab_toggle\r\n\r\nToggles the state of the grab counter.");
 
-            Shell.RegisterCommand("grab_enable", (string txt) => {
+            Shell.RegisterCommand("grab_enable", () => {
                 SetGrabCounterState(true);
             }, "USAGE: grab_enable\r\n\r\nEnables the grab counter.");
 
-            Shell.RegisterCommand("grab_disable", (string txt) => {
+            Shell.RegisterCommand("grab_disable", () => {
                 SetGrabCounterState(false);
             }, "USAGE: grab_disable\r\n\r\nDisables the grab counter.");
         }
